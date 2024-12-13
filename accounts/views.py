@@ -11,7 +11,7 @@ def register(request):
             return redirect('shop:product_list')  # Redirect to the product list
     else:
         form = CustomUserCreationForm()
-    return render(request, 'accounts/register.html', {'form': form})
+    return render(request, 'register.html', {'form': form})
 
 
 
@@ -24,5 +24,8 @@ def user_login(request):
             login(request, user)
             return redirect('shop:product_list')  # Redirect to your desired page after login
         else:
-            return render(request, 'accounts/login.html', {'error': 'Invalid email or password'})
-    return render(request, 'accounts/login.html')
+            return render(request, 'login.html', {'error': 'Invalid email or password'})
+    return render(request, 'login.html')
+
+def home(request):
+    return render(request,'layouts.html');
