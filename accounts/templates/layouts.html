@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}JUNGLE MARKET {% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <style>
+    body {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="font-sans text-gray-800">
+
+  <!-- Navigation Bar -->
+  <header class="absolute w-full z-10 text-white">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="text-2xl font-bold">JUNGLE MARKET</h1>
+      <nav class="hidden md:flex space-x-4">
+        <a href="#about" class="py-2 px-4 rounded-full bg-white bg-opacity-20 hover:bg-opacity-50 transition duration-300">About</a>
+        <a href="#services" class="py-2 px-4 rounded-full bg-white bg-opacity-20 hover:bg-opacity-50 transition duration-300">Services</a>
+        <a href="#gallery" class="py-2 px-4 rounded-full bg-white bg-opacity-20 hover:bg-opacity-50 transition duration-300">Gallery</a>
+        <a href="#products" class="py-2 px-4 rounded-full bg-white bg-opacity-20 hover:bg-opacity-50 transition duration-300">Product</a>
+        <a href="#contact" class="py-2 px-4 rounded-full bg-white bg-opacity-20 hover:bg-opacity-50 transition duration-300">Contact</a>
+      </nav>
+      <button class="md:hidden p-2 bg-white bg-opacity-20 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+   {% block content %} 
+   {% endblock %}
+
+  <!-- Footer -->
+  <footer id="contact" class="bg-blue-500 text-white py-8">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2024 Hospital Name. All Rights Reserved.</p>
+      <p>Email: contact@asgmail.com | Phone: +123-456-7890</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      easing: 'ease-in-out',
+      once: true,
+    });
+  </script>
+</body>
+</html>
