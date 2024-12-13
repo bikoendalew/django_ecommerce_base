@@ -8,7 +8,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)  # Log in the user after registration
-            return redirect('shop:product_list')  # Redirect to the product list
+            return redirect('/')  # Redirect to the product list
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
@@ -22,7 +22,7 @@ def user_login(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('shop:product_list')  # Redirect to your desired page after login
+            return redirect('/')  # Redirect to your desired page after login
         else:
             return render(request, 'login.html', {'error': 'Invalid email or password'})
     return render(request, 'login.html')
