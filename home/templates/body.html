@@ -46,10 +46,9 @@
             <div class="bg-white rounded-lg shadow-lg p-6">
                 <h3 class="font-bold text-xl mb-4">Categories</h3>
                 <ul class="space-y-2">
-                    <li class="hover:bg-gray-100 p-2 rounded cursor-pointer">Electronics <span class="text-gray-400 font-bold text-sm">(54)</span></li>
-                    <li class="hover:bg-gray-100 p-2 rounded cursor-pointer">Fashion <span class="text-gray-400 font-bold text-sm">(34)</span></li>
-                    <li class="hover:bg-gray-100 p-2 rounded cursor-pointer">Home & Garden <span class="text-gray-400 font-bold text-sm">(12)</span></li>
-                    <li class="hover:bg-gray-100 p-2 rounded cursor-pointer">Health & Beauty <span class="text-gray-400 font-bold text-sm">(11)</span></li>
+                    {% for category in categories %}
+                      <li class="hover:bg-gray-100 p-2 rounded cursor-pointer"> {{ category }} <span class="text-gray-400 font-bold text-sm">(54)</span></li>
+                    {% endfor %}
                 </ul>
             </div>
 
