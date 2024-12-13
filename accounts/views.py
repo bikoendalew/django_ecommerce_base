@@ -27,5 +27,3 @@ def user_login(request):
             return render(request, 'login.html', {'error': 'Invalid email or password'})
     return render(request, 'login.html')
 
-def home(request):
-    return render(request,'layouts.html');
