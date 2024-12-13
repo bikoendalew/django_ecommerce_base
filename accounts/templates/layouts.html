@@ -1,56 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}JUNGLE MARKET {% endblock %}</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-  <style>
-    body {
-      scroll-behavior: smooth;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jungle_market</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <style>
+    
+
+        .scroll-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+        }
+        .scroll-to-top.active {
+            display: block;
+        }
+        .slider-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .slide.active {
+            opacity: 1;
+        }
+    </style>
 </head>
-<body class="font-sans text-gray-800">
+<body class="font-sans">
+    <!-- Hero Section with Navigation -->
+    <section class="relative h-screen">
+        <div class="slider-container" id="slider-container">
+      
+                <div class="slide active" 
+                     style="background-image: url('https://www.shutterstock.com/image-photo/isolated-shipping-paper-boxes-inside-600nw-1926849830.jpg'); 
+                            background-size: cover; 
+                            background-position: center;">
+                </div>
+   
+        </div>
+        
+        <div class="absolute inset-0 bg-black bg-opacity-50">
+            <!-- Navigation -->
+            <nav class="relative z-10">
+                <div class="container mx-auto px-6 py-4">
+                    <div class="flex items-center justify-between">
+                        <div class="text-3xl font-bold text-white">
+                          
+                                JUNGLE MARKET
+                        
+                        </div>
+                        <div class="hidden md:flex space-x-6">
+                            <a href="#home" class="px-6 py-2 rounded-full bg-yellow-500 text-white hover:bg-blue-600 transition duration-300">Home</a>
+                            <a href="#about" class="px-6 py-2 rounded-full bg-yellow-500 text-white hover:bg-blue-600 transition duration-300">About Us</a>
+                            <a href="#product" class="px-6 py-2 rounded-full bg-yellow-500 text-white hover:bg-blue-600 transition duration-300">Products</a>
+                            <a href="#contact" class="px-6 py-2 rounded-full bg-yellow-500 text-white hover:bg-blue-600 transition duration-300">Contact</a>
+                            {% if user.is_authenticated %}
+                              <a href="/admin" class="px-6  py-2 rounded-full hover:bg-yellow-500 text-white bg-blue-600 transition duration-300">Dashboard</a>
+                            
+                              <a href="/cart" class="flex items-center px-6 py-2 rounded-full hover:bg-yellow-500 text-white bg-blue-600 transition duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.344 1.344A1 1 0 006 5h14l1.25 5H8.687m0 0A5.001 5.001 0 015 17h14a5 5 0 005-5V7H6.687m1.563 10a3 3 0 11-6 0 3 3 0 016 0zm14 0a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                Cart
+                            </a>
+                            
+                            {% else %}
+                              <a href="/admin" class="px-6  py-2 rounded-full hover:bg-yellow-500 text-white bg-blue-600 transition duration-300">Login</a>
+                            {% endif %}
+                            
+                        </div>
+                        
+                        <button class="md:hidden text-white"> <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/> </svg> 
+                        </button>
 
-  <!-- Navigation Bar -->
-  <header class="absolute w-full z-10 text-white">
-    <div class="container mx-auto flex justify-between items-center py-4 px-6">
-      <h1 class="text-2xl font-bold">JUNGLE MARKET</h1>
-      <nav class="hidden md:flex space-x-4">
-        <a href="#about" class="py-2 px-4 rounded-full bg-white bg-opacity-20 hover:bg-opacity-50 transition duration-300">About</a>
-        <a href="#services" class="py-2 px-4 rounded-full bg-white bg-opacity-20 hover:bg-opacity-50 transition duration-300">Services</a>
-        <a href="#gallery" class="py-2 px-4 rounded-full bg-white bg-opacity-20 hover:bg-opacity-50 transition duration-300">Gallery</a>
-        <a href="#products" class="py-2 px-4 rounded-full bg-white bg-opacity-20 hover:bg-opacity-50 transition duration-300">Product</a>
-        <a href="#contact" class="py-2 px-4 rounded-full bg-white bg-opacity-20 hover:bg-opacity-50 transition duration-300">Contact</a>
-      </nav>
-      <button class="md:hidden p-2 bg-white bg-opacity-20 rounded">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-        </svg>
-      </button>
-    </div>
-  </header>
+                        
+                        
 
-   {% block content %} 
-   {% endblock %}
 
-  <!-- Footer -->
-  <footer id="contact" class="bg-blue-500 text-white py-8">
-    <div class="container mx-auto text-center">
-      <p>&copy; 2024 Hospital Name. All Rights Reserved.</p>
-      <p>Email: contact@asgmail.com | Phone: +123-456-7890</p>
-    </div>
-  </footer>
+                    </div>
+                </div>
+            </nav>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script>
+            <!-- Hero Content -->
+            <div class="container mx-auto px-6 h-full flex items-center">
+                <div class="text-white max-w-xl">
+                    <h1 class="text-5xl font-bold mb-4">Quality Product For You!</h1>
+                    <p class="text-xl mb-8">Your Adventure in Online Shopping Starts Here</p>
+                    <a href="#contact" class="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-3 rounded-full inline-block transition duration-300">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    {%  block content %}
+    {% endblock %}
+
+
+  
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold text-yellow-600 mb-4">JUNGLE MARKET</h3>
+                    <p>Your trusted market place.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="hover:text-yellow-600">Home</a></li>
+                        <li><a href="#about" class="hover:text-yellow-600">About Us</a></li>
+                        <li><a href="#products" class="hover:text-yellow-600">Products</a></li>
+                        <li><a href="#contact" class="hover:text-yellow-600">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Contact Info</h4>
+                    <ul class="space-y-2">
+                        <li>123 Construction Ave</li>
+                        <li>City, State 12345</li>
+                        <li>Phone: (123) 456-7890</li>
+                        <li>Email: info@constructrent.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-800 py-4">
+            <div class="container mx-auto px-6 text-center">
+                <p>&copy; 2024 jungle_market. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+   <!-- Scroll to Top Button -->
+   <button onclick="scrollToTop()" class="scroll-to-top bg-yellow-500 hover:bg-yellow-600 text-white p-3 rounded-full shadow-lg transition duration-300">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+    </svg>
+</button>
+
+<script>
+    // Scroll to Top functionality
+    window.onscroll = function() {
+        const scrollBtn = document.querySelector('.scroll-to-top');
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            scrollBtn.classList.add('active');
+        } else {
+            scrollBtn.classList.remove('active');
+        }
+    };
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
     AOS.init({
-      duration: 1000,
-      easing: 'ease-in-out',
-      once: true,
+        duration: 1000,
+        once: true
     });
-  </script>
+
+
+       
+  // Toggle mobile menu
+  const mobileMenuButton = document.querySelector('.md\\:hidden');
+  const mobileMenu = document.querySelector('.md\\:flex');
+
+  mobileMenuButton.addEventListener('click', () => {
+      // Toggle the 'hidden' class on the mobile menu
+      mobileMenu.classList.toggle('hidden');
+  });
+</script>
+
 </body>
 </html>
+
+
+
+
+
