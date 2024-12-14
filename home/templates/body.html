@@ -44,43 +44,8 @@
                 
 
             </div>
-               <!-- pagination link  -->
-               <div class="mt-6">
-                <nav class="flex justify-center">
-                    <ul class="inline-flex space-x-2">
-                        <!-- Previous Page Button -->
-                        {% if page_obj.has_previous %}
-                            <li>
-                                <a href="?page={{ page_obj.previous_page_number }}" 
-                                   class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
-                                    Previous
-                                </a>
-                            </li>
-                        {% endif %}
+               
             
-                        <!-- Page Numbers -->
-                        {% for num in page_obj.paginator.page_range %}
-                            <li>
-                                <a href="?page={{ num }}" 
-                                   class="px-4 py-2 rounded hover:bg-gray-300 
-                                          {% if page_obj.number == num %}bg-blue-500 text-white{% else %}bg-gray-200{% endif %}">
-                                    {{ num }}
-                                </a>
-                            </li>
-                        {% endfor %}
-            
-                        <!-- Next Page Button -->
-                        {% if page_obj.has_next %}
-                            <li>
-                                <a href="?page={{ page_obj.next_page_number }}" 
-                                   class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
-                                    Next
-                                </a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            </div>
         </div>
 
         <!-- Categories Sidebar -->
