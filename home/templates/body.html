@@ -18,26 +18,68 @@
             <!-- Product Grid -->
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Product 1 -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <img src="https://via.placeholder.com/300" alt="Product 1" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">Product 1</h3>
-                        <p class="text-gray-600 mb-2">Brief description of the product.</p>
-                        <p class="text-red-500 font-bold mb-4">$100 <span class="text-gray-400 line-through">$120</span></p>
-                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">Add to Cart</button>
+
+                {% for product in page_obj %}
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-2">{{ product.name }}</h3>
+                            <p class="text-gray-600 mb-2">{{ product.description }}</p>
+                            <p class="text-red-500 font-bold mb-4">
+                                ${{ product.price }} 
+                                {% if product.discount_price %}
+                                    <span class="text-gray-400 line-through">${{ product.discount_price }}</span>
+                                {% endif %}
+                            </p>
+                            <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">
+                                Add to Cart
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <!-- Product 2 -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <img src="https://via.placeholder.com/300" alt="Product 2" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">Product 2</h3>
-                        <p class="text-gray-600 mb-2">Brief description of the product.</p>
-                        <p class="text-red-500 font-bold mb-4">$80 <span class="text-gray-400 line-through">$100</span></p>
-                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">Add to Cart</button>
-                    </div>
-                </div>
-                <!-- Add more products -->
+                {% endfor %}
+
+
+             
+                
+                
+
+            </div>
+               <!-- pagination link  -->
+               <div class="mt-6">
+                <nav class="flex justify-center">
+                    <ul class="inline-flex space-x-2">
+                        <!-- Previous Page Button -->
+                        {% if page_obj.has_previous %}
+                            <li>
+                                <a href="?page={{ page_obj.previous_page_number }}" 
+                                   class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                                    Previous
+                                </a>
+                            </li>
+                        {% endif %}
+            
+                        <!-- Page Numbers -->
+                        {% for num in page_obj.paginator.page_range %}
+                            <li>
+                                <a href="?page={{ num }}" 
+                                   class="px-4 py-2 rounded hover:bg-gray-300 
+                                          {% if page_obj.number == num %}bg-blue-500 text-white{% else %}bg-gray-200{% endif %}">
+                                    {{ num }}
+                                </a>
+                            </li>
+                        {% endfor %}
+            
+                        <!-- Next Page Button -->
+                        {% if page_obj.has_next %}
+                            <li>
+                                <a href="?page={{ page_obj.next_page_number }}" 
+                                   class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                                    Next
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
             </div>
         </div>
 
@@ -47,43 +89,29 @@
                 <h3 class="font-bold text-xl mb-4">Categories</h3>
                 <ul class="space-y-2">
                     {% for category in categories %}
-                      <li class="hover:bg-gray-100 p-2 rounded cursor-pointer"> {{ category }} <span class="text-gray-400 font-bold text-sm">(54)</span></li>
+                      <li class="hover:bg-gray-100 p-2 rounded cursor-pointer"> {{ category }} <span class="text-gray-400 font-bold text-sm">{{category.product_count}}</span></li>
                     {% endfor %}
                 </ul>
             </div>
 
-            <!-- Trending Products -->
+            <!-- New Products -->
             <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
-                <h3 class="font-bold text-xl mb-4">Trending Products</h3>
+                <h3 class="font-bold text-xl mb-4">New Products</h3>
                 <ul class="space-y-4">
+
+                 {% for prod in newProducts %}
+
                     <li class="flex items-center gap-4 hover:bg-gray-50 p-3 rounded-lg cursor-pointer transition duration-300">
-                        <img src="https://via.placeholder.com/50" alt="Trending 1" class="w-12 h-12 rounded-lg object-cover">
+                        <img src="{{ prod.image.url }}" alt="{{prod.name}}" class="w-12 h-12 rounded-lg object-cover">
                         <div>
-                            <span class="font-medium">Trending Product 1</span>
-                            <p class="text-sm text-red-500">$75</p>
+                            <span class="font-medium">{{prod.name}}</span>
+                            <p class="text-sm text-red-500">${{prod.price}}</p>
                         </div>
                     </li>
-                    <li class="flex items-center gap-4 hover:bg-gray-50 p-3 rounded-lg cursor-pointer transition duration-300">
-                        <img src="https://via.placeholder.com/50" alt="Trending 2" class="w-12 h-12 rounded-lg object-cover">
-                        <div>
-                            <span class="font-medium">Trending Product 2</span>
-                            <p class="text-sm text-red-500">$65</p>
-                        </div>
-                    </li>
-                    <li class="flex items-center gap-4 hover:bg-gray-50 p-3 rounded-lg cursor-pointer transition duration-300">
-                        <img src="https://via.placeholder.com/50" alt="Trending 3" class="w-12 h-12 rounded-lg object-cover">
-                        <div>
-                            <span class="font-medium">Trending Product 3</span>
-                            <p class="text-sm text-red-500">$85</p>
-                        </div>
-                    </li>
-                    <li class="flex items-center gap-4 hover:bg-gray-50 p-3 rounded-lg cursor-pointer transition duration-300">
-                        <img src="https://via.placeholder.com/50" alt="Trending 4" class="w-12 h-12 rounded-lg object-cover">
-                        <div>
-                            <span class="font-medium">Trending Product 4</span>
-                            <p class="text-sm text-red-500">$95</p>
-                        </div>
-                    </li>
+
+                 {% endfor %}
+
+
                 </ul>
             </div>
         </div>
@@ -127,11 +155,17 @@
             <div class="flex flex-wrap items-center">
                 <div class="w-full md:w-1/2 mb-8 md:mb-0">
                     <h2 class="text-3xl font-bold mb-4">About Us</h2>
-                    <p class="mb-4">We are a leading construction equipment rental company with over 15 years of experience in the industry. Our commitment to quality and customer satisfaction sets us apart.</p>
-                    <p>We maintain our equipment to the highest standards and offer competitive rates to help you complete your projects efficiently and on budget.</p>
+                    <p class="mb-4">
+                        Welcome to <span class="text-blue-500 text-bold">JUNKGLE MARKET</span> your go-to destination for quality products at unbeatable prices. 
+                        We are committed to delivering exceptional customer experiences with a 
+                        diverse range of products that cater to your everyday needs. Our mission is to combine convenience, 
+                        affordability, and reliability to make shopping simple and enjoyable. 
+                        With fast shipping and secure payments, we ensure your satisfaction every step of the way.
+                         Thank you for choosing us as your trusted shopping partner
+                    </p>
                 </div>
                 <div class="w-full md:w-1/2">
-                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd" alt="About Us" class="rounded-lg shadow-lg">
+                    <img src="https://images.pexels.com/photos/3944405/pexels-photo-3944405.jpeg?auto=compress&cs=tinysrgb&w=600"  alt="About Us" class="rounded-lg shadow-lg h-100 object-cover">
                 </div>
             </div>
         </div>

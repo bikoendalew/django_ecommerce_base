@@ -1,12 +1,20 @@
 from django.shortcuts import render
-
-from category.models import Category
-
+from django.core.paginator import Paginator
+from category.models import Category, Product
+from django.db.models import Count
 # Create your views here.
 
 def home(request):
-  
-    categories= Category.objects.all()
+    newProducts = Product.objects.order_by('-created_at')[:5]
+    categories = Category.objects.annotate(product_count=Count('products'))
+    products = Product.objects.all()# Fetch all products
+    paginator = Paginator(products, 4)  # Show 4 products per page
+
+    page_number = request.GET.get('page')  # Get the current page number from the URL
+    page_obj = paginator.get_page(page_number)  
+
     return render(request,'body.html',{
-       'categories':categories
+       'categories':categories,
+       'page_obj':page_obj,
+       'newProducts':newProducts
     });
