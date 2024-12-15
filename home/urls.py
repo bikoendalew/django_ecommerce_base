@@ -8,5 +8,6 @@ app_name = 'home'
 
 urlpatterns = [
     path('',views.home,name='home'),
-    path('/products',views.product,name='product')
+    path('products/',views.product,name='product'),
+    path('category/<slug:cat_slug>/', views.product_by_category, name='Pcategory'),  # Filter by category ID
 ]
