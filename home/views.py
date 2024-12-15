@@ -47,8 +47,32 @@ def product_by_category(request, cat_slug):
     page_number = request.GET.get('page')  # Get the current page number from the URL
     page_obj = paginator.get_page(page_number) 
     newProducts = Product.objects.order_by('-created_at')[:5]
+
+
     return render(request,'product.html',{
        'categories':categories,
        'page_obj':page_obj,
-       'newProducts':newProducts
+       'newProducts':newProducts,
     });
+
+
+def product_search(request):
+    query = request.GET.get('q')
+    categories = Category.objects.annotate(product_count=Count('products'))
+    products = Product.objects.all()
+    newProducts = Product.objects.order_by('-created_at')[:5]
+
+    if query:
+        products = products.filter(name__icontains=query)
+
+    paginator = Paginator(products, 8)  # Show 8 products per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+
+    return render(request, 'product.html', {
+        'page_obj': page_obj,
+        'categories': categories,
+        'query': query,
+        'newProducts':newProducts
+    })
