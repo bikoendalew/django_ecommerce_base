@@ -34,9 +34,12 @@
                                     <span class="text-gray-400 line-through">${{ product.discount_price }}</span>
                                 {% endif %}
                             </p>
-                            <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">
-                                Add to Cart
-                            </button>
+                            <form action="{% url 'home:add_to_cart' product_id=product.id %}" method="GET">
+                                <input type="number" name="quantity" value="1" min="1" class="border rounded px-2 py-1 w-16 text-center mx-1">
+                                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">
+                                    Add to Cart
+                                </button>
+                            </form>
                         </div>
                     </div>
                 {% endfor %}
